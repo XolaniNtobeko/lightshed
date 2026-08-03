@@ -1,0 +1,9 @@
+# Maven target directory (compiled binaries)
+target/
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# OS files
+.DS_Store
