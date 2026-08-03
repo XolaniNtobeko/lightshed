@@ -1,0 +1,4 @@
+za/co/wethinkcode/lightshed/model/Town.class
+za/co/wethinkcode/lightshed/PlaceNameServer.class
+za/co/wethinkcode/lightshed/service/TownRepository.class
+za/co/wethinkcode/lightshed/service/TownCleaner.class
