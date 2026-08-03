@@ -15,15 +15,15 @@ public class TownCleanerTest {
     }
     @Test
     void testTrimsSpaceAndFormatsCapitalization(){
-        assertEquals("Goerge", townCleaner.cleanText(" george "));
+        assertEquals("George", townCleaner.cleanText(" george "));
     }
     @Test
     void testHandlesMultiWordTown(){
-        assertEquals("cape town", townCleaner.cleanText("   CAPE  TOWN  "));
+        assertEquals("Cape Town", townCleaner.cleanText("   CAPE  TOWN  "));
     }
     @Test
     void testHandlesMixedCaseInput(){
-        assertEquals("johannesburg", townCleaner.cleanText("jOhAnNeSbUrG"));
+        assertEquals("Johannesburg", townCleaner.cleanText("jOhAnNeSbUrG"));
     }
     @Test
     void testHandlesNullBlankInput(){
