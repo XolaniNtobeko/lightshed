@@ -1,7 +1,10 @@
 package za.co.wethinkcode.lightshed.controller;
 
 import io.javalin.http.Context;
+import za.co.wethinkcode.lightshed.model.Town;
 import za.co.wethinkcode.lightshed.service.TownRepository;
+
+import java.util.List;
 
 public class TownController {
     private final TownRepository repository;
@@ -11,6 +14,7 @@ public class TownController {
     }
 
     public void getAll(Context ctx){
-        ctx.status(501);
+        List<Town> towns = repository.getAllTowns();
+        ctx.json(towns);
     }
 }
