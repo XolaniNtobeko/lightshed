@@ -24,6 +24,4 @@ public class Town {
         return this.province;
     }
 
-
-
 }
