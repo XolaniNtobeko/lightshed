@@ -46,7 +46,7 @@ public class TownRepositoryTest {
         TownRepository townRepository = new TownRepository(cleaner);
         townRepository.loadFromCsv("town.csv");
 
-        List results = townRepository.findByName("George");
+        List<Town> results = townRepository.findByName("George");
 
         assertEquals(1, results.size());
         assertEquals("George", results.get(0).getName());

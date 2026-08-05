@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class TownRepository {
     private final TownCleaner cleaner;
@@ -59,5 +61,14 @@ public class TownRepository {
             throw new RuntimeException(e);
         }
 
+    }
+    public List<Town> findByName(String name){
+        if(name == null || name.isBlank()){
+            return getAllTowns();
+        }
+        String searchItem = name.trim().toLowerCase();
+        return towns.stream()
+                .filter(town -> town.getName().toLowerCase().contains(searchItem))
+                .collect(Collectors.toList());
     }
 }
