@@ -40,4 +40,15 @@ public class TownRepositoryTest {
         assertFalse(firstTown.getName().isBlank(), "Town name should not be blank");
 
     }
+    @Test
+    void testfindByNameReturnsMatchingTownsCaseInsensitive(){
+        TownCleaner cleaner = new TownCleaner();
+        TownRepository townRepository = new TownRepository(cleaner);
+        townRepository.loadFromCsv("town.csv");
+
+        List results = townRepository.findByName("George");
+
+        assertEquals(1, results.size());
+        assertEquals("George", results.get(0).getName());
+    }
 }
