@@ -1,5 +1,8 @@
 package za.co.wethinkcode.lightshed;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.javalin.Javalin;
+import io.javalin.testtools.JavalinTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.co.wethinkcode.lightshed.model.Town;
@@ -13,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TownRepositoryTest {
 
     private TownRepository repository;
-
+    private Javalin app;
+    private ObjectMapper mapper;
     @BeforeEach
     void setUp(){
         TownCleaner cleaner = new TownCleaner();
@@ -51,4 +55,6 @@ public class TownRepositoryTest {
         assertEquals(1, results.size());
         assertEquals("George", results.get(0).getName());
     }
+
+
 }

@@ -14,7 +14,8 @@ public class TownController {
     }
 
     public void getAll(Context ctx){
-        List<Town> towns = repository.getAllTowns();
+        String nameQuery = ctx.queryParam("name");
+        List<Town> towns = repository.findByName(nameQuery);
         ctx.json(towns);
     }
 }
