@@ -29,6 +29,13 @@
             <version>2.15.2</version>
         </dependency>
 
+        <!-- Jackson JSR-310 (Java 8+ Date/Time Support) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+
         <!-- SLF4J Logger (Required by Javalin) -->
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -1,45 +1,61 @@
 package za.co.wethinkcode.lightshed;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.javalin.Javalin;
+import io.javalin.json.JavalinJackson;
 import za.co.wethinkcode.lightshed.controller.TownController;
 import za.co.wethinkcode.lightshed.model.Stage;
+import za.co.wethinkcode.lightshed.service.ScheduleService;
 import za.co.wethinkcode.lightshed.service.StageService;
 import za.co.wethinkcode.lightshed.service.TownCleaner;
 import za.co.wethinkcode.lightshed.service.TownRepository;
 
-import java.util.Map;
-
 public class Main {
 
-    public static void main(String[] args) {
-        TownCleaner cleaner = new TownCleaner();
-        TownRepository repository = new TownRepository(cleaner);
-        repository.loadFromCsv("town.csv");
-
-        TownController controller = new TownController(repository);
-        StageService stageService = new StageService();
+    public static Javalin createApp(StageService stageService, ScheduleService scheduleService) {
+        // Register JavaTimeModule to support java.time.LocalTime serialization
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
 
         Javalin app = Javalin.create(config -> {
-            config.plugins.enableCors(cors -> cors.add(it -> it.anyHost()));
-        }).start(7000);
+            config.jsonMapper(new JavalinJackson(objectMapper));
+            config.plugins.enableCors(cors -> {
+                cors.add(it -> it.anyHost());
+            });
+        });
 
-        // Iteration 1 routes
-        app.get("/api/towns", controller::getAll);
+        TownCleaner townCleaner = new TownCleaner();
+        TownRepository townRepository = new TownRepository(townCleaner);
+        TownController townController = new TownController(townRepository);
 
-        // Iteration 2 (Chunk 1): Stage Service routes
+        // Towns endpoint
+        app.get("/api/towns", townController::getAll);
+
+        // Stage endpoints
         app.get("/api/stage", ctx -> ctx.json(stageService.getCurrentStage()));
-
         app.post("/api/stage", ctx -> {
-            Stage stageReq = ctx.bodyAsClass(Stage.class);
-            stageService.setStage(stageReq.stage());
+            Stage newStage = ctx.bodyAsClass(Stage.class);
+            stageService.setStage(newStage.stage());
             ctx.status(200).json(stageService.getCurrentStage());
         });
 
-        // Exception mapping for invalid stage payloads (HTTP 400)
-        app.exception(IllegalArgumentException.class, (e, ctx) -> {
-            ctx.status(400).json(Map.of("error", e.getMessage()));
+        // Schedule endpoint
+        app.get("/api/schedule/{province}/{town}", ctx -> {
+            String province = ctx.pathParam("province");
+            String town = ctx.pathParam("town");
+            ctx.json(scheduleService.getScheduleForTown(province, town));
         });
 
-        System.out.println("\n🚀 Server running at http://localhost:7000\n");
+        return app;
+    }
+
+    public static void main(String[] args) {
+        StageService stageService = new StageService();
+        ScheduleService scheduleService = new ScheduleService(stageService);
+        Javalin app = createApp(stageService, scheduleService);
+
+        app.start(7000);
+        System.out.println("🚀 Server running at http://localhost:7000");
     }
 }
