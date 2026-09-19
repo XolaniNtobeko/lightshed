@@ -7,6 +7,7 @@ import io.javalin.json.JavalinJackson;
 import za.co.wethinkcode.lightshed.controller.TownController;
 import za.co.wethinkcode.lightshed.model.Stage;
 import za.co.wethinkcode.lightshed.service.ScheduleService;
+import za.co.wethinkcode.lightshed.service.StageEventConsumer;
 import za.co.wethinkcode.lightshed.service.StageService;
 import za.co.wethinkcode.lightshed.service.TownCleaner;
 import za.co.wethinkcode.lightshed.service.TownRepository;
@@ -52,8 +53,31 @@ public class Main {
         // Schedule service will communicate over network to port 7000
         ScheduleService scheduleService = new ScheduleService("http://localhost:7000");
 
+        // Initialize and start the background RabbitMQ event consumer for panic alerts
+        StageEventConsumer eventConsumer = null;
+        try {
+            String rabbitHost = System.getenv("RABBITMQ_HOST");
+            if (rabbitHost == null || rabbitHost.isEmpty()) {
+                rabbitHost = "localhost";
+            }
+            eventConsumer = new StageEventConsumer(rabbitHost);
+            eventConsumer.startConsuming();
+            System.out.println(" [x] StageEventConsumer successfully started and listening for events.");
+        } catch (Exception e) {
+            System.err.println(" [!] Warning: Could not start StageEventConsumer (Broker offline?): " + e.getMessage());
+        }
+
         Javalin app = createApp(stageService, scheduleService);
         app.start(7000);
         System.out.println("🚀 Server running at http://localhost:7000");
+
+        // Ensure clean resource closure if the application shuts down
+        final StageEventConsumer consumerToClose = eventConsumer;
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (consumerToClose != null) {
+                consumerToClose.close();
+                System.out.println(" [x] StageEventConsumer connection closed cleanly.");
+            }
+        }));
     }
 }
