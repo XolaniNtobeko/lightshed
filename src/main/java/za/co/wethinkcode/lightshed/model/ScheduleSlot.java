@@ -1,4 +1,5 @@
 package za.co.wethinkcode.lightshed.model;
 
-public class ScheduleSlot {
-}
+import java.time.LocalTime;
+
+public record ScheduleSlot(LocalTime startTime, LocalTime endTime, int stageThreshold) {}
