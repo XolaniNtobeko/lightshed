@@ -5,10 +5,8 @@ WORKDIR /app
 
 # Copy Maven configuration first for layer caching
 COPY pom.xml .
-
 RUN mvn dependency:go-offline
 
-# Copy source code and dataset
 # Copy source code and dataset
 COPY src ./src
 COPY src/main/resources/town.csv .

@@ -5,9 +5,34 @@ services:
     image: rabbitmq:3-management-alpine
     container_name: lightshed-rabbitmq
     ports:
-      - "5672:5672"   # AMQP protocol port
-      - "15672:15672" # RabbitMQ Management Dashboard
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - lightshed-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  lightshed-app:
+    build: .
+    container_name: lightshed-app
+    ports:
+      - "7001:7000"
+    environment:
+      - RABBITMQ_HOST=lightshed-rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - lightshed-net
+    restart: unless-stopped
+
+networks:
+  lightshed-net:
+    driver: bridge
