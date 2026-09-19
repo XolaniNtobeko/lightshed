@@ -14,15 +14,12 @@ import za.co.wethinkcode.lightshed.service.TownRepository;
 public class Main {
 
     public static Javalin createApp(StageService stageService, ScheduleService scheduleService) {
-        // Register JavaTimeModule to support java.time.LocalTime serialization
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
         Javalin app = Javalin.create(config -> {
             config.jsonMapper(new JavalinJackson(objectMapper));
-            config.plugins.enableCors(cors -> {
-                cors.add(it -> it.anyHost());
-            });
+            config.plugins.enableCors(cors -> cors.add(it -> it.anyHost()));
         });
 
         TownCleaner townCleaner = new TownCleaner();
@@ -52,9 +49,10 @@ public class Main {
 
     public static void main(String[] args) {
         StageService stageService = new StageService();
-        ScheduleService scheduleService = new ScheduleService(stageService);
-        Javalin app = createApp(stageService, scheduleService);
+        // Schedule service will communicate over network to port 7000
+        ScheduleService scheduleService = new ScheduleService("http://localhost:7000");
 
+        Javalin app = createApp(stageService, scheduleService);
         app.start(7000);
         System.out.println("🚀 Server running at http://localhost:7000");
     }

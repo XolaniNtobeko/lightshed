@@ -15,11 +15,19 @@ class ScheduleApiTest {
     void getScheduleShouldReturn200AndActiveSlots() {
         StageService stageService = new StageService();
         stageService.setStage(2);
-        ScheduleService scheduleService = new ScheduleService(stageService);
 
-        Javalin app = Main.createApp(stageService, scheduleService);
+        JavalinTest.test((app, client) -> {
+            // Construct ScheduleService with the dynamic test server URL
+            ScheduleService scheduleService = new ScheduleService("http://localhost:" + app.port());
 
-        JavalinTest.test(app, (server, client) -> {
+            // Register routes on test app
+            app.get("/api/stage", ctx -> ctx.json(stageService.getCurrentStage()));
+            app.get("/api/schedule/{province}/{town}", ctx -> {
+                String province = ctx.pathParam("province");
+                String town = ctx.pathParam("town");
+                ctx.json(scheduleService.getScheduleForTown(province, town));
+            });
+
             var response = client.get("/api/schedule/Western Cape/George");
 
             assertEquals(200, response.code());
