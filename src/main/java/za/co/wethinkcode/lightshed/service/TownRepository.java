@@ -20,7 +20,7 @@ public class TownRepository {
     public TownRepository(TownCleaner cleaner){
         this.cleaner = cleaner;
         this.towns = new ArrayList<>();
-
+        loadFromCsv("town.csv");
     }
     public List<Town> getAllTowns(){
         return Collections.unmodifiableList(towns);
