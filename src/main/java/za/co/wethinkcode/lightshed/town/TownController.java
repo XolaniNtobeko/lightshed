@@ -1,8 +1,6 @@
-package za.co.wethinkcode.lightshed.controller;
+package za.co.wethinkcode.lightshed.town;
 
 import io.javalin.http.Context;
-import za.co.wethinkcode.lightshed.model.Town;
-import za.co.wethinkcode.lightshed.service.TownRepository;
 
 import java.util.List;
 

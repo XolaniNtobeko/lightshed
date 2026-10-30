@@ -4,9 +4,9 @@ import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.co.wethinkcode.lightshed.controller.TownController;
-import za.co.wethinkcode.lightshed.service.TownCleaner;
-import za.co.wethinkcode.lightshed.service.TownRepository;
+import za.co.wethinkcode.lightshed.town.TownController;
+import za.co.wethinkcode.lightshed.town.TownCleaner;
+import za.co.wethinkcode.lightshed.town.TownRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 

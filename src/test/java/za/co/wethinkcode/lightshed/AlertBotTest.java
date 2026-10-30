@@ -1,7 +1,7 @@
 package za.co.wethinkcode.lightshed;
 
 import org.junit.jupiter.api.Test;
-import za.co.wethinkcode.lightshed.service.AlertBot;
+import za.co.wethinkcode.lightshed.services.AlertBot;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

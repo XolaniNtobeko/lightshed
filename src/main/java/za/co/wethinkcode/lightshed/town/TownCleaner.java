@@ -1,6 +1,4 @@
-package za.co.wethinkcode.lightshed.service;
-
-import java.util.Locale;
+package za.co.wethinkcode.lightshed.town;
 
 public class TownCleaner {
 

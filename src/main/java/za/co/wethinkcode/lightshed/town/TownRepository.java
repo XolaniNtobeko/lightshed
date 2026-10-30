@@ -1,6 +1,4 @@
-package za.co.wethinkcode.lightshed.service;
-
-import za.co.wethinkcode.lightshed.model.Town;
+package za.co.wethinkcode.lightshed.town;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -9,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class TownRepository {

@@ -2,7 +2,7 @@ package za.co.wethinkcode.lightshed;
 
 
 import io.javalin.Javalin;
-import za.co.wethinkcode.lightshed.service.TownRepository;
+import za.co.wethinkcode.lightshed.town.TownRepository;
 
 import java.util.List;
 

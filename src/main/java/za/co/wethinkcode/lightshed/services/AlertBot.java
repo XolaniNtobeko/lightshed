@@ -1,4 +1,4 @@
-package za.co.wethinkcode.lightshed.service;
+package za.co.wethinkcode.lightshed.services;
 
 public class AlertBot {
     private final String botName;

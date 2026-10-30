@@ -86,3 +86,41 @@ Option 4: Published Image from GHCRBashsudo docker run --rm -p 7000:7000 --name 
    -d '{"stage": 3}'
 3. Schedule Service (Iteration 2)GET /api/schedule/{province}/{town}Bashcurl -i http://localhost:7000/api/schedule/Western%20Cape/George
    🐳 Docker Management ReferenceActionCommandList Running Containerssudo docker psList All Containerssudo docker ps -aView Live Server Logssudo docker logs -f lightshed-ghcrStop Server Gracefullysudo docker stop lightshed-ghcrForce Stop & Remove Containersudo docker rm -f lightshed-ghcr🔄 TDD & Trunk-Based Workflow RulesTrunk Only: Commit directly to main.RED Phase: Write unit tests defining expected behavior first (mvn clean test).GREEN Phase: Implement minimal code to make tests pass.REFACTOR Phase: Clean structure without breaking tests.Pre-Push Validation: Never push to main without a passing test run.
+
+
+# 1. Build the project and run all unit tests
+mvn clean package
+
+# 2. Build and spin up the entire distributed system (containers & RabbitMQ broker)
+docker compose up --build
+
+# (Optional) Run in detached/background mode if preferred
+docker compose up -d --build
+
+# 3. View live logs while running in the background
+docker compose logs -f
+
+# 4. Stop and tear down all containers and networks when finished
+docker compose down
+
+current stage
+curl -i http://localhost:7000/api/stage
+
+update stage (trigger RabbitMQ)
+curl -i -X POST http://localhost:7000/api/stage \
+-H "Content-Type: application/json" \
+-d '{"stage": 4}'
+
+
+retrieve all towns
+curl -i http://localhost:7000/api/towns
+
+Query by name
+
+curl -i "http://localhost:7000/api/towns?name=Johannesburg"
+
+single town look up
+curl -i http://localhost:7000/api/towns/Johannesburg
+
+get town schedule
+curl -i http://localhost:7000/api/schedule/Gauteng/Johannesburg

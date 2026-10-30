@@ -1,4 +1,4 @@
-package za.co.wethinkcode.lightshed.model;
+package za.co.wethinkcode.lightshed.town;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

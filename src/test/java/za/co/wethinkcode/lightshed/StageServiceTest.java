@@ -2,7 +2,7 @@ package za.co.wethinkcode.lightshed;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.co.wethinkcode.lightshed.service.StageService;
+import za.co.wethinkcode.lightshed.services.StageService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,7 +1,7 @@
 package za.co.wethinkcode.lightshed;
 
 import org.junit.jupiter.api.Test;
-import za.co.wethinkcode.lightshed.service.StageEventPublisher;
+import za.co.wethinkcode.lightshed.services.StageEventPublisher;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

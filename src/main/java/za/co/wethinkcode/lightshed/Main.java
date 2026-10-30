@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.javalin.Javalin;
 import io.javalin.json.JavalinJackson;
-import za.co.wethinkcode.lightshed.controller.TownController;
+import za.co.wethinkcode.lightshed.town.TownController;
 import za.co.wethinkcode.lightshed.model.Stage;
-import za.co.wethinkcode.lightshed.service.ScheduleService;
-import za.co.wethinkcode.lightshed.service.StageEventConsumer;
-import za.co.wethinkcode.lightshed.service.StageService;
-import za.co.wethinkcode.lightshed.service.TownCleaner;
-import za.co.wethinkcode.lightshed.service.TownRepository;
+import za.co.wethinkcode.lightshed.services.ScheduleService;
+import za.co.wethinkcode.lightshed.services.StageEventConsumer;
+import za.co.wethinkcode.lightshed.services.StageService;
+import za.co.wethinkcode.lightshed.town.TownCleaner;
+import za.co.wethinkcode.lightshed.town.TownRepository;
 
 public class Main {
 

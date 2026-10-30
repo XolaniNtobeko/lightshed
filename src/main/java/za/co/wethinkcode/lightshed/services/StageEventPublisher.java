@@ -1,4 +1,4 @@
-package za.co.wethinkcode.lightshed.service;
+package za.co.wethinkcode.lightshed.services;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

@@ -2,7 +2,7 @@ package za.co.wethinkcode.lightshed;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.co.wethinkcode.lightshed.service.TownCleaner;
+import za.co.wethinkcode.lightshed.town.TownCleaner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

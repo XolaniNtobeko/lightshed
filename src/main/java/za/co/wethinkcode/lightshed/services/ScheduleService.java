@@ -1,4 +1,4 @@
-package za.co.wethinkcode.lightshed.service;
+package za.co.wethinkcode.lightshed.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import za.co.wethinkcode.lightshed.model.ScheduleSlot;

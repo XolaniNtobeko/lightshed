@@ -2,12 +2,11 @@ package za.co.wethinkcode.lightshed;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
-import io.javalin.testtools.JavalinTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.co.wethinkcode.lightshed.model.Town;
-import za.co.wethinkcode.lightshed.service.TownCleaner;
-import za.co.wethinkcode.lightshed.service.TownRepository;
+import za.co.wethinkcode.lightshed.town.Town;
+import za.co.wethinkcode.lightshed.town.TownCleaner;
+import za.co.wethinkcode.lightshed.town.TownRepository;
 
 import java.util.List;
 

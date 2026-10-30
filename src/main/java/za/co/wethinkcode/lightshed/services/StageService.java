@@ -1,6 +1,7 @@
-package za.co.wethinkcode.lightshed.service;
+package za.co.wethinkcode.lightshed.services;
 
 import za.co.wethinkcode.lightshed.model.Stage;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class StageService {
